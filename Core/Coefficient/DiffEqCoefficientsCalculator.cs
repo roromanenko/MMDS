@@ -41,7 +41,8 @@ namespace Core.Coefficient
 			// Балансные значения
 			double CyBalance = (2 * m) / (S * rho * Math.Pow(V, 2));
 			double AlphaBalance = 57.3 * ((CyBalance - flightParams.Cy0) / flightParams.CyAlpha);
-			double DeltaVBalance = -57.3 * (((flightParams.Mz0 + flightParams.MzAlpha * AlphaBalance) / (57.3 + CyBalance * (xt - 0.24))) / flightParams.MzDeltaV);
+			double DeltaVBalance = -57.3 * ((flightParams.Mz0 + (flightParams.MzAlpha * AlphaBalance) / 57.3 + CyBalance * (xt - 0.24)) / flightParams.MzDeltaV);
+
 
 			double Cy = CyBalance
 						+ flightParams.CyAlpha * (alpha / 57.3)
@@ -55,7 +56,7 @@ namespace Core.Coefficient
 			c[6] = V / 57.3;
 			c[9] = (flightParams.CyDeltaV / m) * S * ((rho * V) / 2);
 			c[16] = V / (57.3 * g);
-			c[20] = 57.3 * Cy * S * b * ((rho * Math.Pow(V, 2)) / 2 * Iz);
+			c[20] = 57.3 * Cy * S * b * ((rho * Math.Pow(V, 2)) / (2 * Iz));
 
 			return new CoefficientsResult(c, AlphaBalance, DeltaVBalance);
 		}

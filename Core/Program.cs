@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
 using Core;
 using Core.Params;
 using Core.Coefficient;
+
 
 namespace Core
 {
@@ -38,7 +42,7 @@ namespace Core
 			double lCabin = 100;    // L_каб (м)
 
 			// 5) Вызов симуляции
-			sim.Run(
+			SimulationResult result = sim.Run(
 				aircraftParams: aircraft,
 				flightParams: flight,
 				state: state,

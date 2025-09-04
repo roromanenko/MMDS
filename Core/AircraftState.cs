@@ -17,6 +17,7 @@ namespace Core
 		public void Reset()
 		{
 			IsDropped = false;
+			IsDropppedStart = false;
 		}
 
 		public void StartDropping()

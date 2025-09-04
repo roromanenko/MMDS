@@ -9,7 +9,7 @@ namespace Core.Params
 	public sealed class AircraftGeometryAndInertia
 	{
 		//Geometry
-		public double WingAreaSqM { get; init; } = 97.2;								//S, m^2
+		public double WingAreaSqM { get; init; } = 201.45;								//S, m^2
 		public double MeanAerodynamicChordM { get; init; } = 5.285;						// MAC, m
 
 		// Mass (kg)
