@@ -6,6 +6,7 @@ namespace Core
 	{
 		private readonly AircraftGeometryAndInertia _geom;
 
+		public bool IsDropppedStart { get; private set; } = false;
 		public bool IsDropped { get; private set; } = false;
 
 		public AircraftState(AircraftGeometryAndInertia geom)
@@ -18,13 +19,17 @@ namespace Core
 			IsDropped = false;
 		}
 
+		public void StartDropping()
+		{
+			IsDropppedStart = true;
+		}
+
 		public void TriggerInstantDrop()
 		{
 			IsDropped = true;
 		}
 
 		// Текущие значения (ступенька: до/после)
-
 		public double CurrentMassKg =>
 			IsDropped ? _geom.FlightMassAfterDropKg : _geom.FlightMassBeforeDropKg;
 

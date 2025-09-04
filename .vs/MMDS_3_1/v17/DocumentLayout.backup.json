@@ -1,0 +1,172 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\simulation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\simulation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\aircraftstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\aircraftstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\calculatecontrollaw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\calculatecontrollaw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\params\\controllawparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\params\\controllawparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\core\\coefficient\\diffeqcoefficientscalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A25BD12D-DD39-4648-9D75-B8B2A343286D}|Core\\Core.csproj|solutionrelative:core\\coefficient\\diffeqcoefficientscalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD733010-9AFE-4471-83B7-BD4D8851BB77}|MMDS_3_1\\MMDS_3_1.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\mmds_3_1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DD733010-9AFE-4471-83B7-BD4D8851BB77}|MMDS_3_1\\MMDS_3_1.csproj|solutionrelative:mmds_3_1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD733010-9AFE-4471-83B7-BD4D8851BB77}|MMDS_3_1\\MMDS_3_1.csproj|d:\\programing\\university\\\u043C\u043C\u0434\u0441\\mmds_3_1\\mmds_3_1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD733010-9AFE-4471-83B7-BD4D8851BB77}|MMDS_3_1\\MMDS_3_1.csproj|solutionrelative:mmds_3_1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 370,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CalculateControlLaw.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\CalculateControlLaw.cs",
+              "RelativeDocumentMoniker": "Core\\CalculateControlLaw.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\CalculateControlLaw.cs",
+              "RelativeToolTip": "Core\\CalculateControlLaw.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T22:39:32.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Simulation.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Simulation.cs",
+              "RelativeDocumentMoniker": "Core\\Simulation.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Simulation.cs",
+              "RelativeToolTip": "Core\\Simulation.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAgwCQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T19:45:39.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AircraftState.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\AircraftState.cs",
+              "RelativeDocumentMoniker": "Core\\AircraftState.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\AircraftState.cs",
+              "RelativeToolTip": "Core\\AircraftState.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwAgAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T18:08:02.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DiffEqCoefficientsCalculator.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Coefficient\\DiffEqCoefficientsCalculator.cs",
+              "RelativeDocumentMoniker": "Core\\Coefficient\\DiffEqCoefficientsCalculator.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Coefficient\\DiffEqCoefficientsCalculator.cs",
+              "RelativeToolTip": "Core\\Coefficient\\DiffEqCoefficientsCalculator.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAADwvxgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T17:53:52.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ControlLawParams.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Params\\ControlLawParams.cs",
+              "RelativeDocumentMoniker": "Core\\Params\\ControlLawParams.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Params\\ControlLawParams.cs",
+              "RelativeToolTip": "Core\\Params\\ControlLawParams.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T17:40:47.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Core",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Core.csproj",
+              "RelativeDocumentMoniker": "Core\\Core.csproj",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Core.csproj",
+              "RelativeToolTip": "Core\\Core.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-03T15:43:07.253Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Program.cs",
+              "RelativeDocumentMoniker": "Core\\Program.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\Core\\Program.cs*",
+              "RelativeToolTip": "Core\\Program.cs*",
+              "ViewState": "AgIAABkAAAAAAAAAAIAwwDMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T15:43:01.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\MMDS_3_1\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MMDS_3_1\\MainWindow.xaml",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\MMDS_3_1\\MainWindow.xaml",
+              "RelativeToolTip": "MMDS_3_1\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-03T15:40:11.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\MMDS_3_1\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MMDS_3_1\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\PROGRAMING\\University\\\u041C\u041C\u0414\u0421\\MMDS_3_1\\MMDS_3_1\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MMDS_3_1\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T15:40:09.586Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

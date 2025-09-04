@@ -12,13 +12,15 @@ namespace Core
 	public class Simulation
 	{
 		private readonly DiffEqCoefficientsCalculator _coeff;
+		private readonly CalculateControlLaw _controlLaw;
 
-		public Simulation(DiffEqCoefficientsCalculator coeff)
+		public Simulation(DiffEqCoefficientsCalculator coeff, CalculateControlLaw controlLaw)
 		{
 			_coeff = coeff;
+			_controlLaw = controlLaw;
 		}
 
-		public void Run(AircraftGeometryAndInertia aircraftParams, FlightAndAeroParams flightParams, AircraftState state, double tEnd, double dt)
+		public void Run(AircraftGeometryAndInertia aircraftParams, FlightAndAeroParams flightParams, AircraftState state, double tEnd, double dt, double tStartDropping, double hz, int controlLawNumber, double aCargo, double lCabin)
 		{
 			// Инициализируем списки с финальными данными
 			var time = new List<double>();
@@ -39,11 +41,79 @@ namespace Core
 			double[] y = new double[15];
 			double[] x = new double[15];
 
+			double alphaBal1 = 0;
+			double deltaVBal1 = 0;
+
+			double xt = aircraftParams.CgAfterDropPercentMac;
 
 			// Основной цикл
 			for (double i = 0; i < tEnd;)
 			{
-				var c = _coeff.ComputeCoefficients(flightParams, aircraftParams, state, x[6], dV, xt);
+				double dv;
+				// Считаем DeltaV исходя из закона управления
+				if (controlLawNumber == 1)
+				{
+					dv = _controlLaw.CalculateFirstLaw(y[9], hz, x[1]);
+				}
+				else if (controlLawNumber == 2)
+				{
+					dv = _controlLaw.CalculateSecondLaw(y[9], hz, x[1]);
+				}
+				else if (controlLawNumber == 3)
+				{
+					dv = _controlLaw.CalculateThirdLaw(y[9], hz, x[1]);
+				}
+				else if (controlLawNumber == 4)
+				{
+					dv = _controlLaw.CalculateFourthLaw(y[9], hz, x[1]);
+				}
+				else if (controlLawNumber == 5)
+				{
+					dv = _controlLaw.CalculateFifthLaw(y[9], hz, x[1]);
+				}
+				else
+				{
+					dv = _controlLaw.CalculateFirstLaw(y[9], hz, x[1]);
+				}
+
+				// Инициация начала сброса
+				if (i >= tStartDropping)
+				{
+					state.StartDropping();
+				}
+
+				// Обработка состояний центровки в процессе сброса
+				if (state.IsDropppedStart && !state.IsDropped)
+				{
+					double kc = (aircraftParams.CgAtReleasePercentMac - aircraftParams.CgBeforeDropPercentMac) / lCabin;
+					x[11] = y[12];
+					x[12] = aCargo;
+					xt += kc * y[11];
+				}
+				else if (state.IsDropped)
+				{
+					xt = aircraftParams.CgAfterDropPercentMac;
+				}
+
+				if (y[11] >= lCabin)
+				{
+					state.TriggerInstantDrop();
+				}
+
+				// Инициализация расчёта коеф. и баланс. значений.
+				var coeffs = _coeff.ComputeCoefficients(flightParams, aircraftParams, state, x[5], dv, xt);
+
+				// Считаем AlphaBal и DeltaVBal
+				double alphaBal2 = coeffs.AlphaBalance;
+				double deltaVBal2 = coeffs.DeltaVBalance;
+
+				if (i is 0)
+				{
+					alphaBal1 = alphaBal2;
+					deltaVBal1 = deltaVBal2;
+				}
+
+				var c = coeffs.C;
 
 				// Производные
 				x[0] = y[1];																		// ϑ
@@ -52,8 +122,8 @@ namespace Core
 				x[3] = y[4];																		// θ
 				x[4] = c[4] * x[6] + c[9] * x[7];													// θ*
 				x[5] = y[1] - y[4];																	// α
-				x[6] = x[5] + AlphaBal;																// α*
-				x[7] = dV + deltaVBal;																// δB*
+				x[6] = x[5] + (alphaBal1 - alphaBal2);												// α*
+				x[7] = dv + (deltaVBal1 - deltaVBal2);												// δB*
 				x[8] = y[9];																		// H
 				x[9] = c[6] * y[4];																	// H*
 				x[10] = c[16] * x[4];																// ny
@@ -64,6 +134,9 @@ namespace Core
 					y[k] += x[k] * dt;
 				}
 
+				alphaBal1 = alphaBal2;
+				deltaVBal1 = deltaVBal2;
+
 				// Сохраняем данные в массив
 				smallTheta.Add(x[0]);
 				smallThetaDot.Add(x[1]);
@@ -72,13 +145,13 @@ namespace Core
 				thetaDot.Add(x[4]);
 				alpha.Add(x[5]);
 				alphaDot.Add(x[6]);
-				deltaV.Add(x[dV]);
+				deltaV.Add(dv);
 				deltaVDot.Add(x[7]);
 				h.Add(x[8]);
 				hDot.Add(x[9]);
 				ny.Add(x[10]);
 
-				time.Add(i);
+				stime.Add(i);
 				i += dt;
 			}
 		}

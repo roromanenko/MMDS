@@ -1,0 +1,14 @@
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\bin\Debug\net8.0\Core.exe
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\bin\Debug\net8.0\Core.deps.json
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\bin\Debug\net8.0\Core.runtimeconfig.json
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\bin\Debug\net8.0\Core.dll
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\bin\Debug\net8.0\Core.pdb
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.AssemblyInfoInputs.cache
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.AssemblyInfo.cs
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.csproj.CoreCompileInputs.cache
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.dll
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\refint\Core.dll
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.pdb
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\Core.genruntimeconfig.cache
+D:\PROGRAMING\University\ММДС\MMDS_3_1\Core\obj\Debug\net8.0\ref\Core.dll
