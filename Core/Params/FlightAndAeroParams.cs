@@ -10,7 +10,7 @@ namespace Core.Params
 	{
 		// Flight conditions
 		public double VelocityMS { get; init; } = 97.2;					// V0, m/s
-		public double AltitudeM { get; init; } = 600;					// H0, m
+		public double Altitude0 { get; init; } = 600;					// H0, m
 		public double AirDensityKgS2M4 { get; init; } = 0.119;			// ρ, кг·с^2/м^4
 		public double GravityMS2 { get; init; } = 9.81;					// g, m/s^2
 		public double SpeedOfSoundMS { get; init; } = 338.36;			// aH, m/s

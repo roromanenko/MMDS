@@ -33,9 +33,9 @@ namespace Core
 			var sim = new Simulation(coeff, controlLaw);
 
 			// 4) Параметры запуска моделирования
-			double tEnd = 50.0;   // сек
+			double tEnd = 600.0;   // сек
 			double dt = 0.01;   // сек
-			double tStartDropping = 2.0;    // начало вытягивания груза (сек)
+			double tStartDropping = 100.0;    // начало вытягивания груза (сек)
 			double Hset = 600;    // Hзад (для законов управления)
 			int lawNum = 1;      // номер закона управления (1..5)
 			double aCargo = 0.3;    // a_ван (м/с^2)

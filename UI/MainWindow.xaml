@@ -5,11 +5,38 @@
         Title="График высоты H(t)" Width="1000" Height="600"
         Background="#1E1E1E">
     <Grid Margin="16">
-        <Border CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
-            <oxy:PlotView x:Name="PlotView"
-                          Padding="10"
-                          Foreground="White"
-                          Background="Transparent" />
-        </Border>
-    </Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+		<Border Grid.Row="0" Grid.Column="0" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+			<oxy:PlotView Model="{Binding HeightPlot}"
+						  Padding="10"
+						  Foreground="White"
+						  Background="Transparent" />
+		</Border>
+		<Border Grid.Row="0" Grid.Column="1" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+			<oxy:PlotView Model="{Binding DvPlot}"
+						  Padding="10"
+						  Foreground="White"
+						  Background="Transparent" />
+		</Border>
+		<Border Grid.Row="1" Grid.Column="0" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+			<oxy:PlotView Model="{Binding AlphaPlot}"
+						  Padding="10"
+						  Foreground="White"
+						  Background="Transparent" />
+		</Border>
+		<Border Grid.Row="1" Grid.Column="1" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+			<oxy:PlotView Model="{Binding ThetaPlot}"
+						  Padding="10"
+						  Foreground="White"
+						  Background="Transparent" />
+		</Border>
+	</Grid>
 </Window>

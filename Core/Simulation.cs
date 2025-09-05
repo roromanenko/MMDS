@@ -9,11 +9,18 @@ namespace Core
 	{
 		public List<double> Time { get; }
 		public List<double> H { get; }
+		public List<double> Dv { get; }
+		public List<double> Alpha { get; }
+		public List<double> Theta { get; }
 
-		public SimulationResult(List<double> time, List<double> h)
+		public SimulationResult(List<double> time, List<double> h,
+			List<double> dv, List<double> alpha, List<double> theta)
 		{
 			Time = time;
 			H = h;
+			Dv = dv;
+			Alpha = alpha;
+			Theta = theta;
 		}
 	}
 
@@ -49,7 +56,7 @@ namespace Core
 			double[] y = new double[15];
 			double[] x = new double[15];
 
-			y[8] = flightParams.AltitudeM;
+			y[9] = flightParams.Altitude0;
 
 			double alphaBal1 = 0;
 			double deltaVBal1 = 0;
@@ -170,9 +177,9 @@ namespace Core
 					$"{FormatNumber(y[11])}");
 			}
 
-			File.WriteAllText("Logs.csv", logSb.ToString());
+			File.WriteAllText(@"D:\Projects\RomaSim\LogsCheck\Logs1.csv", logSb.ToString());
 
-			return new SimulationResult(time, h);
+			return new SimulationResult(time, h, deltaV, alpha, theta);
 		}
 
 		private static string FormatNumber(double number)
