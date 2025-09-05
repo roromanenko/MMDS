@@ -54,6 +54,8 @@ namespace Core
 				aCargo: aCargo,
 				lCabin: lCabin
 			);
+			Console.WriteLine("Sim is finish, enter any button");
+			Console.ReadKey();
 		}
 	}
 }

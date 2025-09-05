@@ -1,5 +1,7 @@
 ﻿using Core.Coefficient;
 using Core.Params;
+using System.Globalization;
+using System.Text;
 
 namespace Core
 {
@@ -54,41 +56,27 @@ namespace Core
 
 			double xt = aircraftParams.CgBeforeDropPercentMac;
 
+			StringBuilder logSb = new();
+			logSb.AppendLine($"t|height|dv|alpha|theta|dvBalance|Ny|alphaBalance|xt|sCargo");
 			// Основной цикл
-			for (double i = 0; i < tEnd;)
+			for (double t = 0; t < tEnd;)
 			{
 				double ku = (aircraftParams.CgAtReleasePercentMac - aircraftParams.CgBeforeDropPercentMac) / lCabin;
 				double deltaXt = 0.0;
 
-				double dv;
 				// Считаем DeltaV исходя из закона управления
-				if (controlLawNumber == 1)
+				double dv = controlLawNumber switch
 				{
-					dv = _controlLaw.CalculateFirstLaw(y[9], hz, y[2]);
-				}
-				else if (controlLawNumber == 2)
-				{
-					dv = _controlLaw.CalculateSecondLaw(y[9], hz, x[1]);
-				}
-				else if (controlLawNumber == 3)
-				{
-					dv = _controlLaw.CalculateThirdLaw(y[9], hz, x[1]);
-				}
-				else if (controlLawNumber == 4)
-				{
-					dv = _controlLaw.CalculateFourthLaw(y[9], hz, x[1]);
-				}
-				else if (controlLawNumber == 5)
-				{
-					dv = _controlLaw.CalculateFifthLaw(y[9], hz, x[1]);
-				}
-				else
-				{
-					dv = _controlLaw.CalculateFirstLaw(y[9], hz, x[1]);
-				}
+					1 => _controlLaw.CalculateFirstLaw(y[9], hz, y[2]),
+					2 => _controlLaw.CalculateSecondLaw(y[9], hz, x[1]),
+					3 => _controlLaw.CalculateThirdLaw(y[9], hz, x[1]),
+					4 => _controlLaw.CalculateFourthLaw(y[9], hz, x[1]),
+					5 => _controlLaw.CalculateFifthLaw(y[9], hz, x[1]),
+					_ => _controlLaw.CalculateFirstLaw(y[9], hz, x[1])
+				};
 
 				// Инициация начала сброса
-				if (i >= tStartDropping)
+				if (t >= tStartDropping)
 				{
 					state.StartDropping();
 				}
@@ -119,7 +107,7 @@ namespace Core
 				double alphaBal2 = coeffs.AlphaBalance;
 				double deltaVBal2 = coeffs.DeltaVBalance;
 
-				if (i is 0)
+				if (t is 0)
 				{
 					alphaBal1 = alphaBal2;
 					deltaVBal1 = deltaVBal2;
@@ -166,11 +154,30 @@ namespace Core
 				hDot.Add(x[9]);
 				ny.Add(x[10]);
 
-				time.Add(i);
-				i += dt;
+				time.Add(t);
+				t += dt;
+
+				//Logs section
+				logSb.AppendLine($"{FormatNumber(t)}|" +
+					$"{FormatNumber(y[9])}|" +
+					$"{FormatNumber(dv)}|" +
+					$"{FormatNumber(x[5])}|" +
+					$"{FormatNumber(y[1])}|" +
+					$"{FormatNumber(deltaVBal1)}|" +
+					$"{FormatNumber(x[10])}|" +
+					$"{FormatNumber(alphaBal1)}|" +
+					$"{FormatNumber(xt)}|" +
+					$"{FormatNumber(y[11])}");
 			}
 
+			File.WriteAllText("Logs.csv", logSb.ToString());
+
 			return new SimulationResult(time, h);
+		}
+
+		private static string FormatNumber(double number)
+		{
+			return Math.Round(number, 2).ToString("F2", CultureInfo.InvariantCulture);
 		}
 	}
 }
