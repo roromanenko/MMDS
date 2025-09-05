@@ -23,7 +23,7 @@ namespace Core.Params
 
 		// Pitching moment derivatives
 		public double Mz0 { get; init; } = 0.2;
-		public double MzOmegaZ { get; init; } = -13;
+		public double MzOmegaZ { get; init; } = -13.0;
 		public double MzAlphaDot { get; init; } = -3.8;
 		public double MzAlpha { get; init; } = -1.83;
 		public double MzDeltaV { get; init; } = -0.96;

@@ -8,11 +8,12 @@
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 			<RowDefinition/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
 		<Border Grid.Row="0" Grid.Column="0" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
 			<oxy:PlotView Model="{Binding HeightPlot}"
@@ -37,6 +38,18 @@
 						  Padding="10"
 						  Foreground="White"
 						  Background="Transparent" />
+		</Border>
+		<Border Grid.Row="2" Grid.Column="0" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+            <oxy:PlotView Model="{Binding AlphaBal}"
+					Padding="10"
+					Foreground="White"
+					Background="Transparent" />
+		</Border>
+		<Border Grid.Row="2" Grid.Column="1" CornerRadius="8" Background="#222" BorderBrush="#444" BorderThickness="1">
+            <oxy:PlotView Model="{Binding DeltaVBal}"
+					Padding="10"
+					Foreground="White"
+					Background="Transparent" />
 		</Border>
 	</Grid>
 </Window>

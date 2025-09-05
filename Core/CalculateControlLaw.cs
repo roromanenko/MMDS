@@ -9,39 +9,53 @@ namespace Core
 {
 	public class CalculateControlLaw
 	{
-		private readonly ControlLawParams _controlLawParams;
+		public ControlLawParams ControlLawParams { get; }
 
 		public CalculateControlLaw(ControlLawParams controlLawParams)
 		{
-			_controlLawParams = controlLawParams;
+			ControlLawParams = controlLawParams;
 		}
 
 		public double CalculateFirstLaw(double h, double hz, double OmegaZ)
 		{
 			double dv;
-			dv = (_controlLawParams.Kh * (h - hz)) + _controlLawParams.KOmegaZ * OmegaZ;
+			dv = (ControlLawParams.Kh * (h - hz))
+				+ ControlLawParams.KOmegaZ * OmegaZ;
 
 			return dv;
 		}
 
-		public double CalculateSecondLaw(double h, double hz, double OmegaZ)
+		public double CalculateSecondLaw(double h, double hz, double OmegaZ, double hDot)
 		{
-			return 0;
+			double dv = (ControlLawParams.Kh * (h - hz))
+				+ ControlLawParams.KhDot * hDot
+				+ ControlLawParams.KOmegaZ * OmegaZ;
+			return dv;
 		}
 
-		public double CalculateThirdLaw(double h, double hz, double OmegaZ)
+		public double CalculateThirdLaw(double h, double hz, double OmegaZ, double Theta)
 		{
-			return 0;
+			double dv = (ControlLawParams.Kh * (h - hz))
+				+ ControlLawParams.KTheta * (Theta - ControlLawParams.SmallThetaZero)
+				+ ControlLawParams.KOmegaZ * OmegaZ;
+			return dv;
 		}
 
-		public double CalculateFourthLaw(double h, double hz, double OmegaZ)
+		public double CalculateFourthLaw(double h, double hz, double OmegaZ, double y)
 		{
-			return 0;
+			double dv = (ControlLawParams.Kh * (h - hz))
+				+ ControlLawParams.KTheta * y
+				+ ControlLawParams.KOmegaZ * OmegaZ;
+			return dv;
 		}
 
-		public double CalculateFifthLaw(double h, double hz, double OmegaZ)
+		public double CalculateFifthLaw(double h, double hz, double OmegaZ, double hDot, double dt)
 		{
-			return 0;
+			double dv = (ControlLawParams.Kh * (h - hz))
+				+ ControlLawParams.KhDot * hDot
+				+ ControlLawParams.KIntegral * ((h - hz) / dt)
+				+ ControlLawParams.KOmegaZ * OmegaZ;
+			return dv;
 		}
 	}
 }

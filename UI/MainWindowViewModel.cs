@@ -19,6 +19,9 @@ public class MainWindowViewModel : INotifyPropertyChanged
 	public PlotModel AlphaPlot { get; set; }
 	public PlotModel ThetaPlot { get; set; }
 
+	public PlotModel AlphaBal { get; set; }
+	public PlotModel DeltaVBal { get; set; }
+
 	public ICommand RefreshAllCommand { get; }
 
 	public MainWindowViewModel()
@@ -34,8 +37,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
 		var sim = new Simulation(coeff, controlLaw);
 
 		// Настройки прогонки — как у тебя в примере
-		double tEnd = 300, dt = 0.01, tStartDropping = 200;
-		double Hset = 600; int lawNum = 1; double aCargo = 0.3, lCabin = 100;
+		double tEnd = 2000, dt = 0.01, tStartDropping = 200;
+		double Hset = 600; int lawNum = 5; double aCargo = 0.3, lCabin = 100;
 
 		SimulationResult result = sim.Run(
 			aircraftParams: aircraft,
@@ -78,6 +81,20 @@ public class MainWindowViewModel : INotifyPropertyChanged
 			"θ, °", "0.0",
 			"Theta(t)",
 			result.Time.Zip(result.Theta, (t, h) => new DataPoint(t, h)).ToList()
+		);
+		AlphaBal = BuildPlotModel(
+			"Изменение балансированного угла атаки",
+			"t, с", "0.0",
+			"α, °", "0.0",
+			"Theta(t)",
+			result.Time.Zip(result.AlphaBal, (t, h) => new DataPoint(t, h)).ToList()
+		);
+		DeltaVBal = BuildPlotModel(
+			"Изменение балансированого значения руля высоты",
+			"t, с", "0.0",
+			"θ, °", "0.0",
+			"Theta(t)",
+			result.Time.Zip(result.DeltaVBal, (t, h) => new DataPoint(t, h)).ToList()
 		);
 	}
 

@@ -41,7 +41,10 @@ namespace Core.Coefficient
 			// Балансные значения
 			double CyBalance = (2 * m) / (S * rho * Math.Pow(V, 2));
 			double AlphaBalance = 57.3 * ((CyBalance - flightParams.Cy0) / flightParams.CyAlpha);
-			double DeltaVBalance = -57.3 * ((flightParams.Mz0 + (flightParams.MzAlpha * AlphaBalance) / 57.3 + CyBalance * (xt - 0.24)) / flightParams.MzDeltaV);
+			double DeltaVBalance = -57.3 *
+				(
+					(flightParams.Mz0 + (flightParams.MzAlpha * AlphaBalance) / 57.3 + CyBalance * (xt - 0.24))
+					/ flightParams.MzDeltaV);
 
 
 			double Cy = CyBalance
