@@ -44,20 +44,20 @@ namespace Core
 		{
 			// Инициализируем списки с финальными данными
 			var time = new List<double>();
-			var smallTheta = new List<double>();                // ϑ
-			var smallThetaDot = new List<double>();             // ϑ*
-			var smallThetaDotDot = new List<double>();          // ϑ**
-			var theta = new List<double>();                     // θ
-			var thetaDot = new List<double>();                  // θ*
-			var alpha = new List<double>();                     // α
-			var alphaDot = new List<double>();                  // α*
-			var deltaV = new List<double>();                    // δB
-			var deltaVDot = new List<double>();                 // δB*
-			var h = new List<double>();                         // H
-			var hDot = new List<double>();                      // H*
-			var ny = new List<double>();                        // ny
-			var alphaBal = new List<double>();
-			var deltaVBal = new List<double>();
+			var smallTheta = new List<double>();				// ϑ
+			var smallThetaDot = new List<double>();				// ϑ*
+			var smallThetaDotDot = new List<double>();			// ϑ**
+			var theta = new List<double>();						// θ
+			var thetaDot = new List<double>();					// θ*
+			var alpha = new List<double>();						// α
+			var alphaDot = new List<double>();					// α*
+			var deltaV = new List<double>();					// δB
+			var deltaVDot = new List<double>();					// δB*
+			var h = new List<double>();							// H
+			var hDot = new List<double>();						// H*
+			var ny = new List<double>();						// ny
+			var alphaBal = new List<double>();					// α balance
+			var deltaVBal = new List<double>();					// δ balance
 
 			// Инициализируем массивы с производными
 			double[] y = new double[15];
@@ -129,25 +129,25 @@ namespace Core
 				var c = coeffs.C;
 
 				// Производные
-				x[0] = y[1];                                                                        // ϑ
-				x[1] = y[2];                                                                        // ϑ'
+				x[0] = y[1];															// ϑ
+				x[1] = y[2];															// ϑ'
 				x[2] = -c[1] * x[1]
-						- c[2] * x[6]                                                   // ϑ''
-						- c[5] * x[5]                   // α̇ = ϑ̇ - θ̇
+						- c[2] * x[6]													// ϑ''
+						- c[5] * x[5]						// α̇ = ϑ̇ - θ̇
 						- c[3] * x[7]
-						+ c[20] * deltaXt;                       // Δx̄T = k_u Sван
-				x[3] = y[4];                                                                        // θ
-				x[4] = c[4] * x[6] + c[9] * x[7];                                                   // θ'
-				x[5] = x[1] - x[4];                                                                 // α'
-				x[6] = y[5] + (alphaBal1 - alphaBal2);                                              // α*
-				x[7] = dv + (deltaVBal1 - deltaVBal2);                                              // δB*
-				x[8] = y[9];                                                                        // H
-				x[9] = c[6] * y[4];                                                                 // H'
-				x[10] = c[16] * x[4];                                                               // ny
+						+ c[20] * deltaXt;					// Δx̄T = k_u Sван
+				x[3] = y[4];															// θ
+				x[4] = c[4] * x[6] + c[9] * x[7];										// θ'
+				x[5] = x[1] - x[4];														// α'
+				x[6] = y[5] + (alphaBal1 - alphaBal2);									// α*
+				x[7] = dv + (deltaVBal1 - deltaVBal2);									// δB*
+				x[8] = y[9];															// H
+				x[9] = c[6] * y[4];														// H'
+				x[10] = c[16] * x[4];													// ny
 
-				// Значения для расчёта 4 закона
-				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1; //x'
-				x[14] = y[1] - y[13]; // y, law4
+				// Значения для расчёта 4 закона управления
+				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1;				//x'
+				x[14] = y[1] - y[13];													// y, law4
 
 				// Шаг Ейлера
 				for (int k = 0; k < x.Length; k++)

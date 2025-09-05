@@ -93,7 +93,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
 		DvPlot = BuildPlotModel(
 			"Изменения руля высоты ΔV(t)", "t, с", "0.0", "ΔV, °", "0.0",
-			"ΔV(t)", result.Time.Zip(result.Dv, (t, y) => new DataPoint(t, y)).ToList());
+			"δv(t)", result.Time.Zip(result.Dv, (t, y) => new DataPoint(t, y)).ToList());
 
 		AlphaPlot = BuildPlotModel(
 			"Угол атаки α(t)", "t, с", "0.0", "α, °", "0.0",
@@ -109,7 +109,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
 		DeltaVBal = BuildPlotModel(
 			"Балансировочный руль высоты ΔVбал(t)", "t, с", "0.0", "ΔV, °", "0.0",
-			"ΔVбал(t)", result.Time.Zip(result.DeltaVBal, (t, y) => new DataPoint(t, y)).ToList());
+			"δvбал(t)", result.Time.Zip(result.DeltaVBal, (t, y) => new DataPoint(t, y)).ToList());
 	}
 
 	private void RefreshAll()
@@ -181,4 +181,3 @@ public class MainWindowViewModel : INotifyPropertyChanged
 			TitleColor = OxyColors.White
 		};
 }
-

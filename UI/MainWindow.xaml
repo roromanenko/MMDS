@@ -273,7 +273,7 @@
             <TabItem Header="H(t)">
                 <oxy:PlotView Model="{Binding HeightPlot}"/>
             </TabItem>
-            <TabItem Header="ΔV(t)">
+            <TabItem Header="δv(t)">
                 <oxy:PlotView Model="{Binding DvPlot}"/>
             </TabItem>
             <TabItem Header="α(t)">
@@ -285,7 +285,7 @@
             <TabItem Header="αбал(t)">
                 <oxy:PlotView Model="{Binding AlphaBal}"/>
             </TabItem>
-            <TabItem Header="ΔVбал(t)">
+            <TabItem Header="δvбал(t)">
                 <oxy:PlotView Model="{Binding DeltaVBal}"/>
             </TabItem>
         </TabControl>
