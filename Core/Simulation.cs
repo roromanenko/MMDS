@@ -70,8 +70,6 @@ namespace Core
 
 			double xt = aircraftParams.CgBeforeDropPercentMac;
 
-			StringBuilder logSb = new();
-			logSb.AppendLine($"t|height|dv|alpha|theta|dvBalance|Ny|alphaBalance|xt|sCargo");
 			// Основной цикл
 			for (double t = 0; t < tEnd;)
 			{
@@ -147,6 +145,7 @@ namespace Core
 				x[9] = c[6] * y[4];                                                                 // H'
 				x[10] = c[16] * x[4];                                                               // ny
 
+				// Значения для расчёта 4 закона
 				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1; //x'
 				x[14] = y[1] - y[13]; // y, law4
 
@@ -177,21 +176,7 @@ namespace Core
 
 				time.Add(t);
 				t += dt;
-
-				//Logs section
-				logSb.AppendLine($"{FormatNumber(t)}|" +
-					$"{FormatNumber(y[9])}|" +
-					$"{FormatNumber(dv)}|" +
-					$"{FormatNumber(x[5])}|" +
-					$"{FormatNumber(y[1])}|" +
-					$"{FormatNumber(deltaVBal1)}|" +
-					$"{FormatNumber(x[10])}|" +
-					$"{FormatNumber(alphaBal1)}|" +
-					$"{FormatNumber(xt)}|" +
-					$"{FormatNumber(y[11])}");
 			}
-
-			// File.WriteAllText(@"D:\Projects\RomaSim\LogsCheck\Logs1.csv", logSb.ToString());
 
 			return new SimulationResult(time, h, deltaV, alpha, theta, alphaBal, deltaVBal);
 		}
