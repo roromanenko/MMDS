@@ -1,5 +1,31 @@
-﻿.vs
-Core/bin
-Core/obj
-UI/bin
-UI/obj
+# Сборочные артефакты
+bin/
+obj/
+out/
+
+# Пакеты
+*.nupkg
+*.snupkg
+packages/
+*.dll
+*.exe
+
+# Конфиги среды
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Логи
+*.log
+
+# Rider / VSCode / VS
+.idea/
+.vscode/
+*.swp
+*.bak
+.vs
+
+# Системные файлы
+.DS_Store
+Thumbs.db

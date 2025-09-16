@@ -29,6 +29,7 @@ namespace Core.Coefficient
 			var c = new double[21];
 
 			double m = state.CurrentMassKg;
+			double mCoeff = state.CurrentMassKg / flightParams.GravityMS2;
 			double Iz = state.CurrentIz;
 
 			double S = aircraftParams.WingAreaSqM;
@@ -54,10 +55,10 @@ namespace Core.Coefficient
 			c[1] = -(flightParams.MzOmegaZ / Iz) * S * Math.Pow(b, 2) * ((rho * V) / 2);
 			c[2] = -(flightParams.MzAlpha / Iz) * S * b * ((rho * Math.Pow(V, 2)) / 2);
 			c[3] = -(flightParams.MzDeltaV / Iz) * S * b * ((rho * Math.Pow(V, 2)) / 2);
-			c[4] = ((flightParams.CyAlpha + flightParams.Cx) / m) * S * ((rho * V) / 2);
+			c[4] = ((flightParams.CyAlpha + flightParams.Cx) / mCoeff) * S * ((rho * V) / 2);
 			c[5] = -(flightParams.MzAlphaDot / Iz) * S * Math.Pow(b, 2) * ((rho * V) / 2);
 			c[6] = V / 57.3;
-			c[9] = (flightParams.CyDeltaV / m) * S * ((rho * V) / 2);
+			c[9] = (flightParams.CyDeltaV / mCoeff) * S * ((rho * V) / 2);
 			c[16] = V / (57.3 * g);
 			c[20] = 57.3 * Cy * S * b * ((rho * Math.Pow(V, 2)) / (2 * Iz));
 
