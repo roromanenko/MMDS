@@ -288,6 +288,12 @@
             <TabItem Header="δvбал(t)">
                 <oxy:PlotView Model="{Binding DeltaVBal}"/>
             </TabItem>
+            <TabItem Header="Ny(t)">
+                <oxy:PlotView Model="{Binding Ny}"/>
+            </TabItem>
+            <TabItem Header="Xt">
+                <oxy:PlotView Model="{Binding Xt}"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

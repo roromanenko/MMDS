@@ -14,10 +14,12 @@ namespace Core
 		public List<double> Theta { get; }
 		public List<double> AlphaBal { get; }
 		public List<double> DeltaVBal { get; }
+		public List<double> Xt { get; }
+		public List<double> Ny { get; }
 
 		public SimulationResult(List<double> time, List<double> h,
 			List<double> dv, List<double> alpha, List<double> theta,
-			List<double> alphaBal, List<double> deltaVBal)
+			List<double> alphaBal, List<double> deltaVBal, List<double> ny, List<double> xt)
 		{
 			Time = time;
 			H = h;
@@ -26,6 +28,8 @@ namespace Core
 			Theta = theta;
 			AlphaBal = alphaBal;
 			DeltaVBal = deltaVBal;
+			Ny = ny;
+			Xt = xt;
 		}
 	}
 
@@ -58,6 +62,8 @@ namespace Core
 			var ny = new List<double>();						// ny
 			var alphaBal = new List<double>();					// α balance
 			var deltaVBal = new List<double>();					// δ balance
+			var xtArr = new List<double>();						// xt
+
 
 			// Инициализируем массивы с производными
 			double[] y = new double[15];
@@ -76,6 +82,8 @@ namespace Core
 				double ku = (aircraftParams.CgAtReleasePercentMac - aircraftParams.CgBeforeDropPercentMac) / lCabin;
 				double deltaXt = 0.0;
 
+				// double dv = -2;
+				
 				// Считаем DeltaV исходя из закона управления
 				double dv = controlLawNumber switch
 				{
@@ -87,7 +95,7 @@ namespace Core
 					5 => _controlLaw.CalculateFifthLaw(y[9], hz, y[2], x[9], dt),
 					_ => _controlLaw.CalculateFirstLaw(y[9], hz, y[2])
 				};
-
+				
 				// Инициация начала сброса
 				if (t >= tStartDropping)
 				{
@@ -173,17 +181,21 @@ namespace Core
 				ny.Add(x[10]);
 				alphaBal.Add(alphaBal2);
 				deltaVBal.Add(deltaVBal2);
+				xtArr.Add(xt);
 
 				time.Add(t);
 				t += dt;
+
+				if (t >= tEnd - dt * 2)
+				{
+					for (int i = 0; i < c.Length; i ++)
+					{
+						Console.WriteLine($"C[{i}] = {c[i]}");
+					}
+				}
 			}
-
-			return new SimulationResult(time, h, deltaV, alpha, theta, alphaBal, deltaVBal);
-		}
-
-		private static string FormatNumber(double number)
-		{
-			return Math.Round(number, 2).ToString("F2", CultureInfo.InvariantCulture);
+			
+			return new SimulationResult(time, h, deltaV, alpha, theta, alphaBal, deltaVBal, ny, xtArr);
 		}
 	}
 }

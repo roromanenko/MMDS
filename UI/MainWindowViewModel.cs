@@ -9,12 +9,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace UI;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
-	private double _tEnd = 50;
+	private double _tEnd = 90;
 	public double TEnd { get => _tEnd; set => SetProperty(ref _tEnd, value); }
 
 	private double _dt = 0.01;
@@ -32,7 +33,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 	private double _aCargo = 0.3;
 	public double ACargo { get => _aCargo; set => SetProperty(ref _aCargo, value); }
 
-	private double _lCabin = 100;
+	private double _lCabin = 10;
 	public double LCabin { get => _lCabin; set => SetProperty(ref _lCabin, value); }
 
 	private PlotModel _heightPlot;
@@ -52,6 +53,12 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
 	private PlotModel _deltaVBal;
 	public PlotModel DeltaVBal { get => _deltaVBal; private set => SetProperty(ref _deltaVBal, value); }
+
+	private PlotModel _ny;
+	public PlotModel Ny { get => _ny; private set => SetProperty(ref _ny, value); }
+
+	private PlotModel _xt;
+	public PlotModel Xt { get => _xt; private set => SetProperty(ref _xt, value); }
 
 	public ICommand RunCommand { get; }
 	public ICommand RefreshAllCommand { get; }
@@ -110,6 +117,15 @@ public class MainWindowViewModel : INotifyPropertyChanged
 		DeltaVBal = BuildPlotModel(
 			"Балансировочный руль высоты ΔVбал(t)", "t, с", "0.0", "ΔV, °", "0.0",
 			"δvбал(t)", result.Time.Zip(result.DeltaVBal, (t, y) => new DataPoint(t, y)).ToList());
+
+		Ny = BuildPlotModel(
+			"Вертикальне перевантаження Ny", "t, c", "0.0", "Ny", "0.0",
+			"Ny", result.Time.Zip(result.Ny, (t, y) => new DataPoint(t, y)).ToList());
+
+		Xt = BuildPlotModel(
+			"Центрівка", "t, c", "0.0", "xt, %", "0.0",
+			"Xt", result.Time.Zip(result.Xt, (t, y) => new DataPoint(t, y)).ToList());
+
 	}
 
 	private void RefreshAll()
@@ -120,6 +136,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 		Invalidate(ThetaPlot);
 		Invalidate(AlphaBal);
 		Invalidate(DeltaVBal);
+		Invalidate(Ny);
 	}
 
 	private static void Invalidate(PlotModel m) => m?.InvalidatePlot(true);
