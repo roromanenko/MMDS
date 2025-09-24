@@ -35,11 +35,11 @@ namespace Core
 			// 4) Параметры запуска моделирования
 			double tEnd = 90;   // сек
 			double dt = 0.01;   // сек
-			double tStartDropping = 100.0;    // начало вытягивания груза (сек)
+			double tStartDropping = 2;    // начало вытягивания груза (сек)
 			double Hset = 600;    // Hзад (для законов управления)
 			int lawNum = 1;      // номер закона управления (1..5)
 			double aCargo = 0.3;    // a_ван (м/с^2)
-			double lCabin = 100;    // L_каб (м)
+			double lCabin = 10;    // L_каб (м)
 
 			// 5) Вызов симуляции
 			SimulationResult result = sim.Run(

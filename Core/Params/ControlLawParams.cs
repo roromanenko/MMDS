@@ -10,7 +10,7 @@ namespace Core.Params
 	{
 		public double Kh { get; init; } = 0.1;
 		public double KhDot { get; init; } = 0.5;
-		public double KOmegaZ { get; init; } = 1.0;
+		public double KOmegaZ { get; init; } = 0.1;
 		public double KTheta { get; init; } = 1.0;
 		public double KIntegral { get; init; } = 0.002;
 

@@ -44,47 +44,71 @@ namespace Core
 			_controlLaw = controlLaw;
 		}
 
+		private (double AlphaBal, double DeltaVBal) CalculateBalanceValues(
+			double mass,
+			double wingArea,
+			double airDensity,
+			double velocity,
+			double cy0,
+			double cyAlpha,
+			double mz0,
+			double mzAlpha,
+			double mzDeltaV,
+			double xtCurrent,
+			double xtNeutral = 0.24)
+		{
+			double cyBal = (2 * mass) / (wingArea * airDensity * Math.Pow(velocity, 2));
+			double alphaBal = 57.3 * (cyBal - cy0) / cyAlpha;
+			double deltaVBal = -57.3 * (mz0 + mzAlpha * alphaBal / 57.3 + cyBal * (xtCurrent - xtNeutral)) / mzDeltaV;
+
+			return (alphaBal, deltaVBal);
+		}
+
 		public SimulationResult Run(AircraftGeometryAndInertia aircraftParams, FlightAndAeroParams flightParams, AircraftState state, double tEnd, double dt, double tStartDropping, double hz, int controlLawNumber, double aCargo, double lCabin)
 		{
-			// Инициализируем списки с финальными данными
 			var time = new List<double>();
-			var smallTheta = new List<double>();				// ϑ
-			var smallThetaDot = new List<double>();				// ϑ*
-			var smallThetaDotDot = new List<double>();			// ϑ**
-			var theta = new List<double>();						// θ
-			var thetaDot = new List<double>();					// θ*
-			var alpha = new List<double>();						// α
-			var alphaDot = new List<double>();					// α*
-			var deltaV = new List<double>();					// δB
-			var deltaVDot = new List<double>();					// δB*
-			var h = new List<double>();							// H
-			var hDot = new List<double>();						// H*
-			var ny = new List<double>();						// ny
-			var alphaBal = new List<double>();					// α balance
-			var deltaVBal = new List<double>();					// δ balance
-			var xtArr = new List<double>();						// xt
+			var smallTheta = new List<double>();
+			var smallThetaDot = new List<double>();
+			var smallThetaDotDot = new List<double>();
+			var theta = new List<double>();
+			var thetaDot = new List<double>();
+			var alpha = new List<double>();
+			var alphaDot = new List<double>();
+			var deltaV = new List<double>();
+			var deltaVDot = new List<double>();
+			var h = new List<double>();
+			var hDot = new List<double>();
+			var ny = new List<double>();
+			var alphaBal = new List<double>();
+			var deltaVBal = new List<double>();
+			var xtArr = new List<double>();
 
-
-			// Инициализируем массивы с производными
 			double[] y = new double[16];
 			double[] x = new double[16];
 
 			y[9] = flightParams.Altitude0;
 
-			double alphaBal1 = 0;
-			double deltaVBal1 = 0;
+			// Расчет начальных балансировочных значений (они остаются постоянными как опорные)
+			var (alphaBal1, deltaVBal1) = CalculateBalanceValues(
+				aircraftParams.FlightMassBeforeDropKg,
+				aircraftParams.WingAreaSqM,
+				flightParams.AirDensityKgS2M4,
+				flightParams.VelocityMS,
+				flightParams.Cy0,
+				flightParams.CyAlpha,
+				flightParams.Mz0,
+				flightParams.MzAlpha,
+				flightParams.MzDeltaV,
+				aircraftParams.CgBeforeDropPercentMac
+			);
 
 			double xt = aircraftParams.CgBeforeDropPercentMac;
 
-			// Основной цикл
 			for (double t = 0; t < tEnd;)
 			{
 				double ku = (aircraftParams.CgAtReleasePercentMac - aircraftParams.CgBeforeDropPercentMac) / lCabin;
 				double deltaXt = 0.0;
 
-				// double dv = -2;
-				
-				// Считаем DeltaV исходя из закона управления
 				double dv = controlLawNumber switch
 				{
 					1 => _controlLaw.CalculateFirstLaw(y[9], hz, y[2]),
@@ -94,25 +118,23 @@ namespace Core
 					5 => _controlLaw.CalculateFifthLaw(y[9], hz, y[2], x[9], y[15]),
 					_ => _controlLaw.CalculateFirstLaw(y[9], hz, y[2])
 				};
-				
-				// Инициация начала сброса
+
 				if (t >= tStartDropping)
 				{
 					state.StartDropping();
 				}
 
-				// Обработка состояний центровки в процессе сброса
 				if (state.IsDropppedStart && !state.IsDropped)
 				{
-					x[11] = y[12];											// Ṡвант
-					x[12] = aCargo;											// S̈вант = aвант
-					deltaXt = ku * y[11];									// Δx̄T = k_u * Sван
+					x[11] = y[12];
+					x[12] = aCargo;
+					deltaXt = ku * y[11];
 					xt = aircraftParams.CgBeforeDropPercentMac + deltaXt;
 				}
 				else if (state.IsDropped)
 				{
 					xt = aircraftParams.CgAfterDropPercentMac;
-					deltaXt = 0.0;											// после схода груза Δx̄T = 0
+					deltaXt = 0.0;
 				}
 
 				if (y[11] >= lCabin)
@@ -120,54 +142,55 @@ namespace Core
 					state.TriggerInstantDrop();
 				}
 
-				// Инициализация расчёта коеф. и баланс. значений.
+				// Расчет текущих балансировочных значений на основе текущего состояния
+				double currentMass = state.CurrentMassKg;
+				double currentXt = state.IsDropped ? aircraftParams.CgAfterDropPercentMac : aircraftParams.CgBeforeDropPercentMac;
+
+				var (alphaBal2, deltaVBal2) = CalculateBalanceValues(
+					currentMass,
+					aircraftParams.WingAreaSqM,
+					flightParams.AirDensityKgS2M4,
+					flightParams.VelocityMS,
+					flightParams.Cy0,
+					flightParams.CyAlpha,
+					flightParams.Mz0,
+					flightParams.MzAlpha,
+					flightParams.MzDeltaV,
+					currentXt
+				);
+
+				// Получаем коэффициенты для текущего состояния
 				var coeffs = _coeff.ComputeCoefficients(flightParams, aircraftParams, state, x[5], dv, xt);
-
-				// Считаем AlphaBal и DeltaVBal
-				double alphaBal2 = coeffs.AlphaBalance;
-				double deltaVBal2 = coeffs.DeltaVBalance;
-
-				if (t <= 0)
-				{
-					alphaBal1 = alphaBal2;
-					deltaVBal1 = deltaVBal2;
-				}
-
 				var c = coeffs.C;
 
-				// Производные
-				x[0] = y[1];															// ϑ
-				x[1] = y[2];															// ϑ'
+				// Расчет производных
+				x[0] = y[1];
+				x[1] = y[2];
 				x[2] = -c[1] * x[1]
-						- c[2] * x[6]													// ϑ''
-						- c[5] * x[5]						// α̇ = ϑ̇ - θ̇
+						- c[2] * x[6]
+						- c[5] * x[5]
 						- c[3] * x[7]
-						+ c[20] * deltaXt;					// Δx̄T = k_u Sван
-				x[3] = y[4];															// θ
-				x[4] = c[4] * x[6] + c[9] * x[7];										// θ'
-				x[5] = x[1] - x[4];														// α'
-				x[6] = y[5] + (alphaBal1 - alphaBal2);									// α*
-				x[7] = dv + (deltaVBal1 - deltaVBal2);									// δB*
-				x[8] = y[9];															// H
-				x[9] = c[6] * y[4];														// H'
-				x[10] = c[16] * x[4];													// ny
+						+ c[20] * deltaXt;
+				x[3] = y[4];
+				x[4] = c[4] * x[6] + c[9] * x[7];
+				x[5] = x[1] - x[4];
+				x[6] = y[5] + (alphaBal1 - alphaBal2);  // Используем постоянный alphaBal1
+				x[7] = dv + (deltaVBal1 - deltaVBal2);   // Используем постоянный deltaVBal1
+				x[8] = y[9];
+				x[9] = c[6] * y[4];
+				x[10] = c[16] * x[4];
 
-				// Значения для расчёта 4 закона управления
-				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1;				//x'
-				x[14] = y[1] - y[13];                                                   // y, law4
-
+				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1;
+				x[14] = y[1] - y[13];
 				x[15] = y[9] - hz;
 
-				// Шаг Ейлера
+				// Интегрирование методом Эйлера
 				for (int k = 0; k < x.Length; k++)
 				{
 					y[k] += x[k] * dt;
 				}
 
-				alphaBal1 = alphaBal2;
-				deltaVBal1 = deltaVBal2;
-
-				// Сохраняем данные в массив
+				// Сохраняем данные
 				smallTheta.Add(y[1]);
 				smallThetaDot.Add(y[2]);
 				smallThetaDotDot.Add(x[2]);
@@ -186,16 +209,8 @@ namespace Core
 
 				time.Add(t);
 				t += dt;
-
-				if (t >= tEnd - dt * 2)
-				{
-					for (int i = 0; i < c.Length; i ++)
-					{
-						Console.WriteLine($"C[{i}] = {c[i]}");
-					}
-				}
 			}
-			
+
 			return new SimulationResult(time, h, deltaV, alpha, theta, alphaBal, deltaVBal, ny, xtArr);
 		}
 	}
