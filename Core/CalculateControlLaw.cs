@@ -49,12 +49,12 @@ namespace Core
 			return dv;
 		}
 
-		public double CalculateFifthLaw(double h, double hz, double OmegaZ, double hDot, double dt)
+		public double CalculateFifthLaw(double h, double hz, double OmegaZ, double hDot, double integH)
 		{
 			double dv = (ControlLawParams.Kh * (h - hz))
 				+ ControlLawParams.KhDot * hDot
-				+ ControlLawParams.KIntegral * ((h - hz) / dt)
-				+ ControlLawParams.KOmegaZ * OmegaZ;
+				+ ControlLawParams.KIntegral * integH
+                + ControlLawParams.KOmegaZ * OmegaZ;
 			return dv;
 		}
 	}

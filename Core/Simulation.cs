@@ -66,8 +66,8 @@ namespace Core
 
 
 			// Инициализируем массивы с производными
-			double[] y = new double[15];
-			double[] x = new double[15];
+			double[] y = new double[16];
+			double[] x = new double[16];
 
 			y[9] = flightParams.Altitude0;
 
@@ -88,11 +88,10 @@ namespace Core
 				double dv = controlLawNumber switch
 				{
 					1 => _controlLaw.CalculateFirstLaw(y[9], hz, y[2]),
-
 					2 => _controlLaw.CalculateSecondLaw(y[9], hz, y[2], x[9]),
 					3 => _controlLaw.CalculateThirdLaw(y[9], hz, y[2], y[1]),
 					4 => _controlLaw.CalculateFourthLaw(y[9], hz, y[2], x[14]),
-					5 => _controlLaw.CalculateFifthLaw(y[9], hz, y[2], x[9], dt),
+					5 => _controlLaw.CalculateFifthLaw(y[9], hz, y[2], x[9], y[15]),
 					_ => _controlLaw.CalculateFirstLaw(y[9], hz, y[2])
 				};
 				
@@ -155,7 +154,9 @@ namespace Core
 
 				// Значения для расчёта 4 закона управления
 				x[13] = (y[1] - y[13]) / _controlLaw.ControlLawParams.T1;				//x'
-				x[14] = y[1] - y[13];													// y, law4
+				x[14] = y[1] - y[13];                                                   // y, law4
+
+				x[15] = y[9] - hz;
 
 				// Шаг Ейлера
 				for (int k = 0; k < x.Length; k++)
